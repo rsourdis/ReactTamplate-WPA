@@ -1,15 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import App from './routes/App';
+import { Provider } from 'react-redux';
+import { createStore, compose } from 'redux';
+import reducer from './reducers';
+
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+const initialState = {
+  'user': {},
+  'servicios': [],
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, initialState, composeEnhancers());
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
